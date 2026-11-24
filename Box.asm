@@ -9,36 +9,36 @@
   @BLACK
   D;JNE
   @color
-  M=0            // no key -> white
+  M=0            
   @DRAW
   0;JMP
 (BLACK)
   @color
-  M=-1           // key    -> black
+  M=-1           
 (DRAW)
-  @16896         // 16384 + 32*K
+  @16896         
   D=A
   @addr
-  M=D            // addr = first word of current row
-  @20            // rows tall
+  M=D            
+  @20            
   D=A
   @rows
   M=D
 (ROW)
-  @1             // width in words
+  @1             
   D=A
   @cols
   M=D
   @addr
   D=M
   @p
-  M=D            // p = pointer within this row
+  M=D            
 (COL)
   @color
   D=M
   @p
   A=M
-  M=D            // RAM[p] = color
+  M=D            
   @p
   M=M+1
   @cols
@@ -49,7 +49,7 @@
   @32
   D=A
   @addr
-  M=D+M          // next row: addr += 32
+  M=D+M          
   @rows
   M=M-1
   D=M
