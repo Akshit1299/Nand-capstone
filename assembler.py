@@ -1,7 +1,4 @@
-"""Hack assembler (Nand to Tetris) - K = 16, K mod 3 = 1
-Extra feature: for a wrong line, print 'Line N: invalid instruction' instead of crashing.
-Usage: python assembler.py Prog.asm   ->  writes Prog.hack
-"""
+
 import sys
 
 COMP = {'0':'0101010','1':'0111111','-1':'0111010','D':'0001100','A':'0110000',
@@ -21,17 +18,16 @@ def predefined():
 
 
 def clean(line):
-    """Remove comments and all whitespace."""
     return line.split('//')[0].replace(' ', '').replace('\t', '').strip()
 
 
 def assemble(path):
     symbols = predefined()
     lines = [(n, clean(l)) for n, l in enumerate(open(path), 1)]
-    lines = [(n, l) for n, l in lines if l]          # drop blank/comment lines
+    lines = [(n, l) for n, l in lines if l]          
     errors = []
 
-    # PASS 1: record label addresses
+   
     pc, code = 0, []
     for n, l in lines:
         if l.startswith('('):
@@ -43,7 +39,7 @@ def assemble(path):
             code.append((n, l))
             pc += 1
 
-    # PASS 2: translate to 16-bit binary; new variables start at RAM[16]
+  
     nxt, out = 16, []
     for n, l in code:
         try:
